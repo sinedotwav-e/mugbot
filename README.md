@@ -1,2 +1,2 @@
-# oddity-shop
+# MUGSHOT!
 A school assessment
