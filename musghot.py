@@ -2,9 +2,11 @@ import random
 from random import randint
 import time
 
-# Welcome screen, does nothing other than make the title look nice
-time.sleep(1)
+# List of names for the random name generator
+names = ["Doug", "Douglas", "Dougington", "Dougie", "Duggie", "Doogie", "Dougalasa", 
+"Dùbhghlas", "Thrangott the Devourer", "Gab", "Doug Doug"]
 
+# Welcome screen, does nothing other than make the title look nice
 def title():
     '''
     Function: To make the program aesthecially pleasing
@@ -28,6 +30,19 @@ def title():
         print(title[count])
         time.sleep(0.125)
 
+# Welcome's user and introduces itself with a randomly generated name
+def welcome():
+    num = randint(1,10)
+    name = (names[num])
+
+    print("Welcome to MUGSHOT!")
+    time.sleep(1.5)
+    print("My name is", name, "and I will help you order a brand new mug!")
+    time.sleep(1.8)
+
+def ordertype():
+    
+
 
 # Main function, runs all other functions
 def main():
@@ -37,5 +52,6 @@ def main():
     Returns: None
     '''
     title()
+    welcome()
 
 main()
