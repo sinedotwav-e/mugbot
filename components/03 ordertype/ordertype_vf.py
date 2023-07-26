@@ -3,6 +3,7 @@
 import time
 
 def ordertype():
+    deiverypickup = 0
     print("Would you like to order for click-and-collect or delivery?")
     time.sleep(2.5)
     print("")
@@ -19,15 +20,17 @@ def ordertype():
                 exit()
             elif ordtype == 1:
                 print("Pick-up!") # Replace with pickupinfo_v*
+                deiverypickup = "click-and-collect"
                 break
             elif ordtype == 2:
                 print("Delivery!") # Replace with deliveryinfo_v*
+                deiverypickup = "delivery"
                 break
             else:
                 print("")
-                print("Invalid number! Enter either 1 or 2!")
+                print("Invalid number! Enter either 1, 2 or 0!")
         except ValueError:
             print("")
-            print("Invalid input! Please enter either 1 or 2")
+            print("Invalid input! Please enter either 1, 2 or 0!")
 
 ordertype()
