@@ -1,6 +1,13 @@
 import random
+# Allows for randomly generated variables
+
 from random import randint
+# Importing from random to import randint
+# It returns a random integer from a range of previously
+# specified integers
+
 import time
+# Allows the program to delay printing strings to allow for user readability
 
 # List of names for the random name generator
 names = ["Doug", "Douglas", "Dougington", "Dougie", "Duggie", "Doogie", "Dougalasa", 
@@ -11,23 +18,18 @@ userdetails = {}
 
 # Ensures that inputs cannot be blank in most functions
 def notblank(query):
-  valid = False
-  while not valid:
-    response = input(query)
+    valid = False
+    while not valid:
+        response = input(query)
     if response != "":
-      print("")
-      return response
+        print("")
+        return response
     else:
-      print("")
-      print("Entry cannot be blank, try again.") # Taken from pizzabot
+        print("")
+        print("Entry cannot be blank, try again.") # Taken from pizzabot
 
 # Welcome screen, does nothing other than make the title look nice
 def title():
-    '''
-    Function: To make the program aesthecially pleasing
-    Parameters: None
-    Returns: None
-    '''
     title = [
     '███╗   ███╗██╗   ██╗ ██████╗ ███████╗██╗  ██╗ ██████╗ ████████╗██╗',
     '████╗ ████║██║   ██║██╔════╝ ██╔════╝██║  ██║██╔═══██╗╚══██╔══╝██║',
@@ -46,6 +48,11 @@ def title():
 
 # Welcome's user and introduces itself with a randomly generated name
 def welcome():
+    '''
+    Function: To welcome the user with a message and randomly generated name
+    Parameters: None
+    Returns: None
+    '''
     num = randint(1,10)
     name = (names[num])
 
@@ -88,12 +95,15 @@ def ordertype():
 
 # Collects user information when user selects for pick-up
 def pickupinfo():
-  # Name input
-  query = ("Enter your name > ")
-  userdetails['name'] = notblank(query)
-  # Phone number input
-  query = ("Enter your phone number > ")
-  userdetails['phone'] = notblank(query)
+    # Name input
+    query = ("Enter your name > ")
+    userdetails['name'] = notblank(query)
+    # Phone number input
+    query = ("Enter your phone number > ")
+    userdetails['phone'] = notblank(query)
+    print(userdetails)
+
+# Collects user information when user selects for delivery
 
 
 # Main function, runs all other functions

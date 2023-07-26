@@ -1,4 +1,4 @@
-# Collects information required for pick-up
+# Collects information required for delivery
 import time
 
 # Dictionary to store user information
@@ -16,14 +16,23 @@ def notblank(query):
             print("\nEntry cannot be blank, please try again.") 
 
 # Pick-up info function
-def pickupinfo():
+def deliveryinfo():
     # Name input:
     query = ("Enter your name > ")
     userdetails['name'] = notblank(query)
     # Phone number input
     query = ("Enter your phone number > ")
     userdetails['phone'] = notblank(query)
-    
-pickupinfo()
+    # House number input
+    query = ("Enter your house number > ")
+    userdetails['house number'] = notblank(query)
+    # Street name input
+    query = ("Enter your street > ")
+    userdetails['street'] = notblank(query)
+    # Suburb name input
+    query = ("Enter your suburb > ")
+    userdetails['suburb'] = notblank(query)
+
+deliveryinfo()
 
 print(userdetails)
