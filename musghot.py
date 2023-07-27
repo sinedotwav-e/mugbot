@@ -16,17 +16,21 @@ names = ["Doug", "Douglas", "Dougington", "Dougie", "Duggie", "Doogie", "Dougala
 # Dictionary to store user details
 userdetails = {}
 
+# List of relevant details
+detail = ['name', 'number', 'house number', 'street', 'suburb']
+# Detail list length
+detaillist = len(detail)
+
 # Ensures that inputs cannot be blank in most functions
 def notblank(query):
     valid = False
     while not valid:
         response = input(query)
-    if response != "":
-        print("")
-        return response
-    else:
-        print("")
-        print("Entry cannot be blank, try again.") # Taken from pizzabot
+        if response != "":
+            print("")
+            return response
+        else:
+            print("\nEntry cannot be blank, please try again.") 
 
 # Welcome screen, does nothing other than make the title look nice
 def title():
@@ -64,7 +68,7 @@ def welcome():
 def ordertype():
     deiverypickup = 0
     print("Would you like to order for click-and-collect or delivery?")
-    time.sleep(2.5)
+    time.sleep(1.7)
     print("")
     print("Enter 1 for Click-and-collect")
     print("Enter 2 for Delivery ($9.00 surcharge for 4 or fewer items)")
@@ -78,20 +82,23 @@ def ordertype():
                 time.sleep(3) # Replace with program exit function
                 exit()
             elif ordtype == 1:
-                print("Ordering for click-and-collect!")
+                print("\nOrdering for click-and-collect!\n")
+                time.sleep(1)
                 deiverypickup = "click-and-collect"
                 pickupinfo()
                 break
             elif ordtype == 2:
-                print("Delivery!") # Replace with deliveryinfo_v*
+                print("\nOrdering for delivery!\n")
+                time.sleep(1)
                 deiverypickup = "delivery"
+                deliveryinfo()
                 break
             else:
                 print("")
-                print("Invalid number! Enter either 1 or 2!")
+                print("Invalid number! Enter either 1, 2 or 0!")
         except ValueError:
             print("")
-            print("Invalid input! Please enter either 1 or 2")
+            print("Invalid input! Please enter either 1, 2 or 0")
 
 # Collects user information when user selects for pick-up
 def pickupinfo():
@@ -104,7 +111,11 @@ def pickupinfo():
     print(userdetails)
 
 # Collects user information when user selects for delivery
-
+def deliveryinfo():
+    # General loop for all user inputs
+    for count in range (detaillist):
+        query = ("Enter your {} > " .format(detail[count]))
+        userdetails[detail[count]] = notblank(query)
 
 # Main function, runs all other functions
 def main():
@@ -113,8 +124,8 @@ def main():
     Parameters: None
     Returns: None
     '''
-    title()
-    welcome()
+    #title()
+    #welcome()
     ordertype()
 
 main()
