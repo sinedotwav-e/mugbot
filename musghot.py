@@ -35,6 +35,11 @@ mugprices = [12.50, 12.50, 12.50, 12.50, 14.20, 14.20, 14.20, 14.20, 14.20, 14.2
 
 mugtotal = 24 # Total number of mugs
 
+# List to stored ordered mugs
+orderlist = []
+# List to store ordered mugss prices
+ordercost = []
+
 # Ensures that inputs cannot be blank in most functions
 def notblank(query):
     valid = False
@@ -134,10 +139,50 @@ def deliveryinfo():
     
 def mugmenu():
     print("Here are the mugs you can order from us!\n-----------------------------------------") # Menu title
-    time.sleep(2)
+    time.sleep(1.7)
 
     for count in range (mugtotal): # For loop printing the index number, price and item name
         print("{} ${:.2f} {}"  .format(count+1, float(mugprices[count]), mugnames[count])) # Formatted menu
+        time.sleep(0.05)
+
+def mugordering():
+    # Ask for number of mugs required
+    mugsnum = 0
+# Loop for selecting number of desired mugs
+    while True:
+        try:
+            mugsnum = int(input("\nHow many mugs would you like to order? > "))
+            if mugsnum >= 1 and mugsnum <= 20:
+                break
+            else:
+                print("Your order must be between 1 and 20\n")
+
+        except ValueError:
+            print ("That is not a valid number")
+            print ("Please enter a number between 1 and 20\n")
+
+    print("\nYou are ordering", mugsnum, "mugs.\n")
+
+    # Loop for selecting desired mugs
+    for item in range(mugsnum):
+        while mugsnum > 0:
+            while True:
+                try:
+                    mugordered = int(input("By entering the index number on the left, order your mugs > ")) - 1
+                    if mugordered >= 0 and mugordered <= 23:
+                        break
+                    else: 
+                        print("\nYour number must be between 1 and 24")
+                        
+                except ValueError:
+                        print ("\nThat is not a valid number")
+                        print ("Please enter number enter between 1 and 24\n")
+                        
+            orderlist.append(mugnames[mugordered])
+            ordercost.append(mugprices[mugordered])
+            print("You have ordered a ${:.2f} {}" .format(mugprices[mugordered], mugnames[mugordered]))
+            mugsnum = mugsnum - 1
+            print("\n " + mugsnum, "mugs remaining")
 
 # Main function, runs all other functions
 def main():
@@ -146,9 +191,11 @@ def main():
     Parameters: None
     Returns: None
     '''
-    title()
-    welcome()
     ordertype()
     mugmenu()
+    mugordering()
+
+title()
+welcome()
 
 main()
