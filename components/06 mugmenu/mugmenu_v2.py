@@ -12,7 +12,9 @@ mugnames = ['Plain white mug', 'Plain black mug', 'Plain brown mug', 'Plain gree
 mugprices = [12.50, 12.50, 12.50, 12.50, 14.20, 14.20, 14.20, 14.20, 14.20, 14.20, 14.20, 14.20, # 1-4 Single tone mugs, 5-8 Patterned mugs, 9-12 Two-toned mugs
              16.80, 16.80, 16.80, 16.80, 20.00, 20.00, 20.00, 20.00, 24.00, 24.00, 30.00, 50.00] # 13-16 Mugs with a decal, 17-20 Unique feature mugs, 21-24 Unique shape mugs
 
-mugnum = 24 # Total number of mugs
+mugtotal = 24 # Total number of mugs
 
-for count in range (mugnum):
-    print(count, mugprices[count], mugnames[count])
+print("Select your mugs from the list below!\n-----------------------------------------")
+
+for count in range (mugtotal):
+    print("{} ${:.2f} {}"  .format(count+1, float(mugprices[count]), mugnames[count]))
