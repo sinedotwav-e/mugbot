@@ -19,10 +19,10 @@ for item in orderlist:
     count = count + 1
 
 print()
-if deiverypickup == "delivery" and mugsnum < 5:
+if deiverypickup == "delivery" and mugsnum > 4:
     ordercost.append(9.00)
     print("$9.00 delivery")
-elif deiverypickup == "delivery" and mugsnum > 4:
+elif deiverypickup == "delivery" and mugsnum > 5:
     print("$0.00 delivery (5 or more items ordered)")
 
 totalcost = sum(ordercost)

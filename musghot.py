@@ -17,7 +17,7 @@ names = ["Doug", "Douglas", "Dougington", "Dougie", "Duggie", "Doogie", "Dougala
 userdetails = {}
 
 # List of relevant details
-detail = ['name', 'number', 'house number', 'street', 'suburb']
+detail = ['name', 'phone', 'house', 'street', 'suburb']
 # Detail list length
 detaillist = len(detail)
 
@@ -84,8 +84,8 @@ def welcome():
     print("My name is", name, "and I will help you order a brand new mug!")
     time.sleep(1.8)
 
+# Allow user to select what kind of order they would like to place
 def ordertype():
-    deiverypickup = 0
     print("Would you like to order for click-and-collect or delivery?")
     time.sleep(1.7)
     print("")
@@ -103,15 +103,13 @@ def ordertype():
             elif ordtype == 1:
                 print("\nOrdering for click-and-collect!\n")
                 time.sleep(1)
-                deiverypickup = "click-and-collect"
                 pickupinfo()
-                break
+                return "click-and-collect"
             elif ordtype == 2:
                 print("\nOrdering for delivery!\n")
                 time.sleep(1)
-                deiverypickup = "delivery"
                 deliveryinfo()
-                break
+                return "delivery"
             else:
                 print("")
                 print("Invalid number! Enter either 1, 2 or 0!")
@@ -127,7 +125,6 @@ def pickupinfo():
     # Phone number input
     query = ("Enter your phone number > ")
     userdetails['phone'] = notblank(query)
-    print(userdetails)
 
 # Collects user information when user selects for delivery
 def deliveryinfo():
@@ -135,11 +132,12 @@ def deliveryinfo():
     for count in range (detaillist):
         query = ("Enter your {} > " .format(detail[count]))
         userdetails[detail[count]] = notblank(query)
+    print(userdetails)
 
-    
 def mugmenu():
-    print("Here are the mugs you can order from us!\n-----------------------------------------") # Menu title
+    print("Here are the mugs you can order from us!") # Menu title
     time.sleep(1.7)
+    print("--------------------------------------------------")
 
     for count in range (mugtotal): # For loop printing the index number, price and item name
         print("{} ${:.2f} {}"  .format(count+1, float(mugprices[count]), mugnames[count])) # Formatted menu
@@ -161,7 +159,7 @@ def mugordering():
             print ("That is not a valid number")
             print ("Please enter a number between 1 and 20\n")
 
-    print("\nYou are ordering", mugsnum, "mugs.\n")
+    print("\nYou are ordering", mugsnum, "mugs.")
 
     # Loop for selecting desired mugs
     for item in range(mugsnum):
@@ -180,9 +178,36 @@ def mugordering():
                         
             orderlist.append(mugnames[mugordered])
             ordercost.append(mugprices[mugordered])
-            print("You have ordered a ${:.2f} {}" .format(mugprices[mugordered], mugnames[mugordered]))
+            print("\n!! You have ordered a ${:.2f} {} !!" .format(mugprices[mugordered], mugnames[mugordered]))
             mugsnum = mugsnum - 1
-            print("\n " + mugsnum, "mugs remaining")
+            print("\n ", mugsnum, "mugs remaining")
+
+def receipt(deliverypickup):
+    if len(userdetails) == 2:
+        print("\nName: {}\nPhone Number: {}\n"
+        .format(userdetails['name'], userdetails['phone']))
+    elif len(userdetails) == 5:
+        print("\nName: {}\nPhone Number: {}\nHouse Number: {}\nStreet Name: {}\nSuburb: {}\n"
+        .format(userdetails['name'], userdetails['phone'], userdetails['house'], userdetails['street'], userdetails['suburb']))
+    time.sleep(3)
+    count = 0
+    for item in orderlist:
+        print("Cost: ${:.2f} | Ordered: {}" .format(ordercost[count], item))
+        count = count + 1
+    time.sleep(len(orderlist)*0.2+2)
+    print()
+    if deliverypickup == "delivery" and len(orderlist) < 5:
+        ordercost.append(9.00)
+        print("+$9.00 delivery (Less than 5 items ordered)")
+    elif deliverypickup == "delivery" and len(orderlist) > 5:
+        print("+$0.00 delivery (5 or more items ordered)")
+    else:
+        print("+$0.00 delivery (click-and-collect selected)")
+    totalcost = sum(ordercost)
+    time.sleep(1.5)
+    print("\n--------------------------------------------------")
+    print("Total Order Cost w/ Delivery:", f"${totalcost:.2f}")
+    print("--------------------------------------------------")
 
 # Main function, runs all other functions
 def main():
@@ -191,9 +216,10 @@ def main():
     Parameters: None
     Returns: None
     '''
-    ordertype()
+    deliverypickup = ordertype()
     mugmenu()
     mugordering()
+    receipt(deliverypickup)
 
 title()
 welcome()
