@@ -67,7 +67,6 @@ def title():
     for count in range (titlelength):
         print(title[count])
         time.sleep(0.125) 
-    time.sleep(2.7)
 
 # Welcome's user and introduces itself with a randomly generated name
 def welcome():
@@ -82,7 +81,6 @@ def welcome():
     print("\nWelcome to MUGSHOT!")
     time.sleep(1.5)
     print("My name is", name, "and I will help you order a brand new mug!")
-    time.sleep(1.8)
 
 # Allow user to select what kind of order they would like to place
 def ordertype():
@@ -120,11 +118,10 @@ def ordertype():
 # Collects user information when user selects for pick-up
 def pickupinfo():
     # Name input
-    query = ("Enter your name > ")
-    userdetails['name'] = notblank(query)
-    # Phone number input
-    query = ("Enter your phone number > ")
-    userdetails['phone'] = notblank(query)
+    for count in range (detaillist - 3):
+        query = ("Enter your {} > " .format(detail[count]))
+        userdetails[detail[count]] = notblank(query)
+    print(userdetails)
 
 # Collects user information when user selects for delivery
 def deliveryinfo():
@@ -134,6 +131,7 @@ def deliveryinfo():
         userdetails[detail[count]] = notblank(query)
     print(userdetails)
 
+# Menu that user can select from
 def mugmenu():
     print("Here are the mugs you can order from us!") # Menu title
     time.sleep(1.7)
@@ -143,6 +141,7 @@ def mugmenu():
         print("{} ${:.2f} {}"  .format(count+1, float(mugprices[count]), mugnames[count])) # Formatted menu
         time.sleep(0.05)
 
+# Allows users to select what they want from the menu provided
 def mugordering():
     # Ask for number of mugs required
     mugsnum = 0
@@ -182,6 +181,7 @@ def mugordering():
             mugsnum = mugsnum - 1
             print("\n ", mugsnum, "mugs remaining")
 
+# Prints order and user information
 def receipt(deliverypickup):
     if len(userdetails) == 2:
         print("\nName: {}\nPhone Number: {}\n"
@@ -209,6 +209,36 @@ def receipt(deliverypickup):
     print("Total Order Cost w/ Delivery:", f"${totalcost:.2f}")
     print("--------------------------------------------------")
 
+# Allow user to create another order or exit the program
+def neworexit():
+    # Basic user instructions
+    print("Would you like to order again or exit the program?")
+    print("Enter 1 to exit program")
+    print("Enter 2 to restart program")
+    # While loop to avoid crashing
+    while True:
+        try:
+            # Integer input for exit or restart
+            newexit = int(input("Enter number here > "))
+            if newexit == 1: # Exit option
+                print("Goodbye!~")
+                time.sleep(3)
+                exit()
+            elif newexit == 2: # Restart option
+                userdetails.clear()
+                orderlist.clear()
+                ordercost.clear()
+                print("Restarting...\n")
+                time.sleep(1)
+                main()
+                break
+            else:# Invalid integer entered
+                print("")
+                print("Invalid number! Enter either 1 or 2!")
+        except ValueError: # Invalid value intered
+                print("")
+                print("Invalid input! Please enter either 1 or 2!")
+
 # Main function, runs all other functions
 def main():
     '''
@@ -216,12 +246,14 @@ def main():
     Parameters: None
     Returns: None
     '''
+    title()
+    time.sleep(2.7)
+    welcome()
+    time.sleep(1.8)
     deliverypickup = ordertype()
     mugmenu()
     mugordering()
     receipt(deliverypickup)
-
-title()
-welcome()
+    neworexit()
 
 main()
