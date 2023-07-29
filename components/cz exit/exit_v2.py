@@ -21,3 +21,4 @@ for count in range (exitlength):
 for xt in range (3, 0, -1):
     print(f"Exiting in {xt}...")
     time.sleep(1)
+exit()
