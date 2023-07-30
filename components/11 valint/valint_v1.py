@@ -1,7 +1,3 @@
-# Final copy (changes can be made later)
-# Allows user to order for either delivery or click-and-collect
-import time
-
 def valint():
     while True:
         try:

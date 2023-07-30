@@ -1,5 +1,3 @@
-# Final copy (changes can be made later)
-# Allows user to order for either delivery or click-and-collect
 def valint(low, high, question):
     while True: 
         try:

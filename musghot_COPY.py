@@ -17,7 +17,7 @@ names = ["Doug", "Douglas", "Dougington", "Dougie", "Duggie", "Doogie", "Dougala
 userdetails = {}
 
 # List of relevant details
-detail = ['name', 'phone', 'house', 'street', 'suburb']
+detail = ['name', 'phone number', 'house number', 'street', 'suburb']
 # Detail list length
 detaillist = len(detail)
 
@@ -49,7 +49,19 @@ def notblank(query):
             print("")
             return response
         else:
-            print("\nEntry cannot be blank, please try again.") 
+            print("\nEntry cannot be blank, please try again.")
+
+def valint(low, high, question):
+    while True: 
+        try:
+            num = int(input(question))
+            if num >= low and num <= high: 
+                return num
+            else:
+                print(f"\nPlease enter a number between {low} and {high}")
+        except ValueError: 
+            print("\nThat is not a valid number")
+            print(f"Please enter a number between {low} and {high}")
 
 # Welcome screen, does nothing other than make the title look nice
 def title():
@@ -69,6 +81,7 @@ def title():
         time.sleep(0.125) 
 
 def exittitle():
+    print()
     exittitle = [
         ' ██████╗  █████╗  █████╗ ██████╗ ██████╗ ██╗   ██╗███████╗██╗',
         '██╔════╝ ██╔══██╗██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝██╔════╝██║',
@@ -104,16 +117,19 @@ def welcome():
 
 # Allow user to select what kind of order they would like to place
 def ordertype():
+    LOW = 0
+    HIGH = 2
     print("Would you like to order for click-and-collect or delivery?")
     time.sleep(1.7)
     print("")
+    question = (f"Enter a number between {LOW} and {HIGH} > ")
     print("Enter 1 for Click-and-collect")
     print("Enter 2 for Delivery ($9.00 surcharge for 4 or fewer items)")
     print("Enter 0 to exit the program")
+    ordtype = valint(LOW, HIGH, question)
     # Ordering options
     while True:
         try:
-            ordtype = int(input("Enter number here > "))
             if ordtype == 0:
                 exittitle()
             elif ordtype == 1:
@@ -139,7 +155,6 @@ def pickupinfo():
     for count in range (detaillist - 3):
         query = ("Enter your {} > " .format(detail[count]))
         userdetails[detail[count]] = notblank(query)
-    print(userdetails)
 
 # Collects user information when user selects for delivery
 def deliveryinfo():
@@ -147,7 +162,6 @@ def deliveryinfo():
     for count in range (detaillist):
         query = ("Enter your {} > " .format(detail[count]))
         userdetails[detail[count]] = notblank(query)
-    print(userdetails)
 
 # Menu that user can select from
 def mugmenu():
@@ -161,20 +175,13 @@ def mugmenu():
 
 # Allows users to select what they want from the menu provided
 def mugordering():
-    # Ask for number of mugs required
-    mugsnum = 0
+    LOW = 1
+    HIGH = 20
 # Loop for selecting number of desired mugs
-    while True:
-        try:
-            mugsnum = int(input("\nHow many mugs would you like to order? > "))
-            if mugsnum >= 1 and mugsnum <= 20:
-                break
-            else:
-                print("Your order must be between 1 and 20\n")
-
-        except ValueError:
-            print ("That is not a valid number")
-            print ("Please enter a number between 1 and 20\n")
+    print("\nHow many mugs would you like to order")
+    print("Due to recent events, we will only ship 20 mugs or less")
+    question = (f"Enter a number between {LOW} and {HIGH} > ")
+    mugsnum = valint(LOW, HIGH, question)
 
     print("\nYou are ordering", mugsnum, "mugs.")
 
@@ -197,16 +204,16 @@ def mugordering():
             ordercost.append(mugprices[mugordered])
             print("\n!! You have ordered a ${:.2f} {} !!" .format(mugprices[mugordered], mugnames[mugordered]))
             mugsnum = mugsnum - 1
-            print("\n ", mugsnum, "mugs remaining")
+            print(mugsnum, "mugs remaining\n")
 
 # Prints order and user information
 def receipt(deliverypickup):
     if len(userdetails) == 2:
         print("\nName: {}\nPhone Number: {}\n"
-        .format(userdetails['name'], userdetails['phone']))
+        .format(userdetails['name'], userdetails['phone number']))
     elif len(userdetails) == 5:
         print("\nName: {}\nPhone Number: {}\nHouse Number: {}\nStreet Name: {}\nSuburb: {}\n"
-        .format(userdetails['name'], userdetails['phone'], userdetails['house'], userdetails['street'], userdetails['suburb']))
+        .format(userdetails['name'], userdetails['phone number'], userdetails['house number'], userdetails['street'], userdetails['suburb']))
     time.sleep(3)
     count = 0
     for item in orderlist:
@@ -227,33 +234,59 @@ def receipt(deliverypickup):
     print("Total Order Cost w/ Delivery:", f"${totalcost:.2f}")
     print("--------------------------------------------------")
 
+# To allow the user to confirm their order
+def confirmcancel():
+    LOW = 0
+    HIGH = 2
+    question = (f"Enter a number between {LOW} and {HIGH} > ")
+    print("Please confirm your order")
+    print("Enter 1 to confirm your order")
+    print("Enter 2 to cancel your order")
+    print("Enter 0 to end the program")
+    confirm = valint(LOW, HIGH, question)
+
+    while True:
+        try:
+            if confirm == 1:
+                print("Ordered confirmed!")
+                neworexit()
+                break
+            elif confirm == 2:
+                print("Re-doing order...")
+                main()
+                break
+            elif confirm == 0:
+                print("Goodbye!")
+                exittitle()
+                break
+            else:
+                print("Invalid number! Enter either 1 or 2")
+
+        except ValueError:
+            print("Invalid entry! Enter either 1 or 2")
+
 # Allow user to create another order or exit the program
 def neworexit():
+    LOW = 1
+    HIGH = 2
     # Basic user instructions
+    question = (f"Enter a number between {LOW} and {HIGH} > ")
     print("Would you like to order again or exit the program?")
     print("Enter 1 to exit program")
     print("Enter 2 to restart program")
     # While loop to avoid crashing
+    newexit = valint(LOW, HIGH, question)
     while True:
-        try:
-            # Integer input for exit or restart
-            newexit = int(input("Enter number here > "))
-            if newexit == 1: # Exit option
+        if newexit == 1: # Exit option
                 exittitle()
-            elif newexit == 2: # Restart option
-                userdetails.clear()
-                orderlist.clear()
-                ordercost.clear()
-                print("Restarting...\n")
-                time.sleep(1)
-                main()
-                break
-            else:# Invalid integer entered
-                print("")
-                print("Invalid number! Enter either 1 or 2!")
-        except ValueError: # Invalid value intered
-                print("")
-                print("Invalid input! Please enter either 1 or 2!")
+        elif newexit == 2: # Restart option
+            userdetails.clear()
+            orderlist.clear()
+            ordercost.clear()
+            print("Restarting...\n")
+            time.sleep(1)
+            main()
+            break
 
 # Main function, runs all other functions
 def main():
@@ -262,14 +295,15 @@ def main():
     Parameters: None
     Returns: None
     '''
-    title()
-    time.sleep(2.7)
-    welcome()
-    time.sleep(1.8)
+    #title()
+    #time.sleep(2.7)
+    #welcome()
+    #time.sleep(1.8)
     deliverypickup = ordertype()
     mugmenu()
     mugordering()
     receipt(deliverypickup)
+    confirmcancel()
     neworexit()
 
 main()
