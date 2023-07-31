@@ -26,11 +26,11 @@ mugnames = ['Plain white mug', 'Plain black mug', 'Plain brown mug', 'Plain gree
             'Striped white & red mug', 'Striped black & yellow mug', 'Gradient magenta & blue mug', 'Gradient black and white mug', # 5-8 Patterned mugs
             'Two-tone green & white mug', 'Two-tone brown & white mug', 'Two-tone blue & purple mug', 'Two-tone black & white mug', # 9-12 Two-toned mugs
             'White skull decal mug', 'Green leaf decal mug', 'Blue sun decal mug', 'Purple gem decal mug', # 13-16 Mugs with a decal
-            'Glow-in-the-dark mug', 'Glitter mug', 'Colour changing mug', 'Glass mug', # 17-20 Unique feature mugs
-            'Skull shaped mug', 'Wooden tankard', 'Wallace mug (from Wallace & Gromit)', 'Golden, diamond encrusted bowl'] # 21-24 Unique shape mugs
+            'Glow-in-the-dark mug', 'Glitter mug', 'Colour changing mug', 'Glass mug', # 17-20 Mugs withy a unique feature
+            'Skull shaped mug', 'Wooden tankard', 'Wallace mug (from Wallace & Gromit)', 'Diamond encrusted bowl'] # 21-24 Mugs with a unique shape and a bowl
 
 # Prices of mugs
-mugprices = [12.50, 12.50, 12.50, 12.50, 14.20, 14.20, 14.20, 14.20, 14.20, 14.20, 14.20, 14.20, # 1-4 Single tone mugs, 5-8 Patterned mugs, 9-12 Two-toned mugs
+mugprices = [12.50, 12.50, 12.50 , 12.50, 14.20, 14.20, 14.20, 14.20, 14.20, 14.20, 14.20, 14.20, # 1-4 Single tone mugs, 5-8 Patterned mugs, 9-12 Two-toned mugs
              16.80, 16.80, 16.80, 16.80, 20.00, 20.00, 20.00, 20.00, 24.00, 24.00, 30.00, 50.00] # 13-16 Mugs with a decal, 17-20 Unique feature mugs, 21-24 Unique shape mugs
 
 mugtotal = 24 # Total number of mugs
@@ -236,34 +236,29 @@ def receipt(deliverypickup):
 
 # To allow the user to confirm their order
 def confirmcancel():
-    LOW = 0
+    LOW = 1
     HIGH = 2
     question = (f"Enter a number between {LOW} and {HIGH} > ")
     print("Please confirm your order")
     print("Enter 1 to confirm your order")
-    print("Enter 2 to cancel your order")
-    print("Enter 0 to end the program")
+    print("Enter 2 to continue without confirming")
     confirm = valint(LOW, HIGH, question)
 
     while True:
         try:
             if confirm == 1:
-                print("Ordered confirmed!")
+                print("Ordered confirmed!\n")
                 neworexit()
                 break
             elif confirm == 2:
-                print("Re-doing order...")
-                main()
-                break
-            elif confirm == 0:
-                print("Goodbye!")
-                exittitle()
+                print("Order not confirmed!\n")
+                neworexit()
                 break
             else:
-                print("Invalid number! Enter either 1 or 2")
+                print("Invalid number! Enter either 1 or 2\n")
 
         except ValueError:
-            print("Invalid entry! Enter either 1 or 2")
+            print("Invalid entry! Enter either 1 or 2\n")
 
 # Allow user to create another order or exit the program
 def neworexit():
@@ -295,10 +290,10 @@ def main():
     Parameters: None
     Returns: None
     '''
-    #title()
-    #time.sleep(2.7)
-    #welcome()
-    #time.sleep(1.8)
+    title()
+    time.sleep(2.7)
+    welcome()
+    time.sleep(1.8)
     deliverypickup = ordertype()
     mugmenu()
     mugordering()
