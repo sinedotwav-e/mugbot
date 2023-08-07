@@ -1,6 +1,6 @@
 # Validates inputs as characters from the alphabet
 
-def checkstring(question):
+def alphaval(question):
     while True:
         response = input(question)
         x = response.isalpha()

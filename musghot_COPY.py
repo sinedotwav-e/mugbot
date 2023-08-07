@@ -63,6 +63,17 @@ def valint(low, high, question):
             print("\nThat is not a valid number")
             print(f"Please enter a number between {low} and {high}")
 
+def stringval(query):
+    while True:
+        response = input(query)
+        x = response.isalpha()
+        if x == False:
+            print("\nInput must only contain letters")
+            print("There cannot be any numbers (123...), special characters (!@#$...) or whitespaces ( )")
+        else:
+            print()
+            return response.title()
+
 # Welcome screen, does nothing other than make the title look nice
 def title():
     title = [
@@ -153,15 +164,27 @@ def ordertype():
 def pickupinfo():
     # Name input
     for count in range (detaillist - 3):
-        query = ("Enter your {} > " .format(detail[count]))
-        userdetails[detail[count]] = notblank(query)
+        currentdeet = 1
+        if currentdeet == 1:
+            query = ("Enter your {} > " .format(detail[count]))
+            userdetails[detail[count]] = stringval(query)
+        else:
+            query = ("Enter your {} > " .format(detail[count]))
+            userdetails[detail[count]] = notblank(query)
+        currentdeet = currentdeet + 1
 
 # Collects user information when user selects for delivery
 def deliveryinfo():
     # General loop for all user inputs
+    currentdeet = 1
     for count in range (detaillist):
-        query = ("Enter your {} > " .format(detail[count]))
-        userdetails[detail[count]] = notblank(query)
+        if currentdeet == 1 or currentdeet == 4 or currentdeet == 5:
+            query = ("Enter your {} > " .format(detail[count]))
+            userdetails[detail[count]] = stringval(query)
+        else:
+            query = ("Enter your {} > " .format(detail[count]))
+            userdetails[detail[count]] = notblank(query)
+        currentdeet = currentdeet + 1
 
 # Menu that user can select from
 def mugmenu():
@@ -290,10 +313,10 @@ def main():
     Parameters: None
     Returns: None
     '''
-    title()
-    time.sleep(2.7)
-    welcome()
-    time.sleep(1.8)
+    #title()
+    #time.sleep(2.7)
+    #welcome()
+    #time.sleep(1.8)
     deliverypickup = ordertype()
     mugmenu()
     mugordering()
