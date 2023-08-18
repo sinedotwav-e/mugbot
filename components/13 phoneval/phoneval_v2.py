@@ -1,4 +1,4 @@
-# Validates the phone number input
+# Validates the phone number input to make sure its between 7 and 11 digits
 def phoneval(question, PH_LOW, PH_HIGH):
     while True:
         try:

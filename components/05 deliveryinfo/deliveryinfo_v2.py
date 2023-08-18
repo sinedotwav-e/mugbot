@@ -2,10 +2,10 @@
 import time
 
 # Dictionary to store user information
-detail = ['name', 'number', 'house number', 'street', 'suburb']
-detaillist = len(detail)
-
 userdetails = {}
+
+detail = ['name', 'phone', 'house number', 'street', 'suburb']
+detaillist = len(detail)
 
 # Ensures that inputs cannot be blank
 def notblank(query):
@@ -20,8 +20,8 @@ def notblank(query):
 
 # Pick-up info function
 def deliveryinfo():
-    # General loop for all user inputs
     for count in range (detaillist):
+        # Generalized input for all entries
         query = ("Enter your {} > " .format(detail[count]))
         userdetails[detail[count]] = notblank(query)
 

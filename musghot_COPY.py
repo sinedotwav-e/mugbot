@@ -51,10 +51,10 @@ def notblank(query):
         else:
             print("\nEntry cannot be blank, please try again.")
 
-def valint(low, high, question):
+def valint(low, high, query):
     while True: 
         try:
-            num = int(input(question))
+            num = int(input(query))
             if num >= low and num <= high: 
                 return num
             else:
@@ -73,6 +73,24 @@ def stringval(query):
         else:
             print()
             return response.title()
+        
+# Validates the phone number input to make sure its between 7 and 11 digits
+def phoneval(query, PH_LOW, PH_HIGH):
+    while True:
+        try:
+            response = int(input(query))
+            testnum = response
+            count = 0
+            while testnum > 0:
+                testnum = testnum//10
+                count = count + 1
+            if count >= PH_LOW and count <= PH_HIGH:
+                print()
+                return response
+            else:
+                print("\nNZ Phone Numbers have between 7 or 11 digits.")
+        except ValueError:
+            print("\nInvalid Input! NZ Phone Numbers have between 7 or 11 digits.")
 
 # Welcome screen, does nothing other than make the title look nice
 def title():
@@ -162,33 +180,40 @@ def ordertype():
 
 # Collects user information when user selects for pick-up
 def pickupinfo():
+    PH_LOW = 7
+    PH_HIGH = 11
+    currentdeet = 1
     # Name input
     for count in range (detaillist - 3):
-        currentdeet = 1
         if currentdeet == 1:
             query = ("Enter your {} > " .format(detail[count]))
             userdetails[detail[count]] = stringval(query)
         else:
             query = ("Enter your {} > " .format(detail[count]))
-            userdetails[detail[count]] = notblank(query)
+            userdetails[detail[count]] = phoneval(query, PH_LOW, PH_HIGH)
         currentdeet = currentdeet + 1
 
 # Collects user information when user selects for delivery
 def deliveryinfo():
+    PH_LOW = 7
+    PH_HIGH = 11
     # General loop for all user inputs
     currentdeet = 1
     for count in range (detaillist):
         if currentdeet == 1 or currentdeet == 4 or currentdeet == 5:
             query = ("Enter your {} > " .format(detail[count]))
             userdetails[detail[count]] = stringval(query)
-        else:
+        if currentdeet == 2:
+            query = ("Enter your {} > " .format(detail[count]))
+            userdetails[detail[count]] = phoneval(query, PH_LOW, PH_HIGH)
+        elif currentdeet == 3:
             query = ("Enter your {} > " .format(detail[count]))
             userdetails[detail[count]] = notblank(query)
         currentdeet = currentdeet + 1
 
 # Menu that user can select from
 def mugmenu():
-    print("Here are the mugs you can order from us!") # Menu title
+    print("\nHere are the mugs you can order from us!") # Menu title
     time.sleep(1.7)
     print("--------------------------------------------------")
 
