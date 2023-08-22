@@ -1,8 +1,8 @@
 # Validates the phone number input
-def phoneval(question, PH_LOW, PH_HIGH):
+def phoneval(query, PH_LOW, PH_HIGH):
     while True:
         try:
-            num = int(input(question))
+            num = int(input(query))
             testnum = num
             count = 0
             while testnum > 0:

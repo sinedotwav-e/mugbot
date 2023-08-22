@@ -51,6 +51,7 @@ def notblank(query):
         else:
             print("\nEntry cannot be blank, please try again.")
 
+# Validates for only numbers
 def valint(low, high, question):
     while True: 
         try:
@@ -63,6 +64,7 @@ def valint(low, high, question):
             print("\nThat is not a valid number")
             print(f"Please enter a number between {low} and {high}")
 
+# Validates for only letters
 def stringval(query):
     while True:
         response = input(query)
@@ -73,6 +75,23 @@ def stringval(query):
         else:
             print()
             return response.title()
+
+# Validates the phone number input
+def phoneval(query, PH_LOW, PH_HIGH):
+    while True:
+        try:
+            num = int(input(query))
+            testnum = num
+            count = 0
+            while testnum > 0:
+                testnum = testnum//10
+                count = count + 1
+            if count >= PH_LOW and count <= PH_HIGH:
+                return num
+            else:
+                print("\nNZ Phone Numbers have between 7 or 11 digits.")
+        except ValueError:
+            print("\nInvalid Input! NZ Phone Numbers have between 7 or 11 digits.")
 
 # Welcome screen, does nothing other than make the title look nice
 def title():
@@ -162,15 +181,17 @@ def ordertype():
 
 # Collects user information when user selects for pick-up
 def pickupinfo():
-    # Name input
+    PH_LOW = 7
+    PH_HIGH = 11
+    currentdeet = 1
+    # General loop for all user inputs
     for count in range (detaillist - 3):
-        currentdeet = 1
         if currentdeet == 1:
             query = ("Enter your {} > " .format(detail[count]))
             userdetails[detail[count]] = stringval(query)
-        else:
+        elif currentdeet == 2:
             query = ("Enter your {} > " .format(detail[count]))
-            userdetails[detail[count]] = notblank(query)
+            userdetails[detail[count]] = phoneval(query, PH_LOW, PH_HIGH)
         currentdeet = currentdeet + 1
 
 # Collects user information when user selects for delivery
@@ -313,10 +334,10 @@ def main():
     Parameters: None
     Returns: None
     '''
-    #title()
-    #time.sleep(2.7)
-    #welcome()
-    #time.sleep(1.8)
+    title()
+    time.sleep(2.7)
+    welcome()
+    time.sleep(1.8)
     deliverypickup = ordertype()
     mugmenu()
     mugordering()
